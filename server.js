@@ -574,12 +574,12 @@ const sendVerificationCode = async (email, code) => {
 
 function isLoggedIn(req, res, next) {
   const token = req.cookies.token;
-  console.log("request coming");
+
   
   if (!token) return res.status(401).json({ message: "Unauthorized" });
 
   try {
-    const verified = jwt.verify(token, "secretjwtcode");
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
     req.user = verified;
     next();
   } catch (error) {
