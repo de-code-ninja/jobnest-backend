@@ -93,7 +93,7 @@ app.post("/api/auth/google-login/:role", async (req, res) => {
   if (user) {
     console.log("user exists");
 
-    const token = jwt.sign({ id: user._id }, "secretjwtcode");
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     return res
       .status(200)
       .cookie("token", token)
@@ -107,7 +107,7 @@ app.post("/api/auth/google-login/:role", async (req, res) => {
       verified: email_verified,
       uid,
     });
-    const token = jwt.sign({ id: newUser._id }, "secretjwtcode");
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
     return res
       .status(201)
       .cookie("token", token)
@@ -452,7 +452,7 @@ app.post("/api/login", async (req, res) => {
 
     console.log("user exists");
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     return res
       .status(200)
       .cookie("token", token)
@@ -574,6 +574,8 @@ const sendVerificationCode = async (email, code) => {
 
 function isLoggedIn(req, res, next) {
   const token = req.cookies.token;
+  console.log("request coming");
+  
   if (!token) return res.status(401).json({ message: "Unauthorized" });
 
   try {
@@ -587,3 +589,5 @@ function isLoggedIn(req, res, next) {
 app.listen(process.env.PORT , () => {
   console.log("server started at " + process.env.PORT);
 });
+
+
