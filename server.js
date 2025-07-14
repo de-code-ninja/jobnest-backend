@@ -318,7 +318,7 @@ app.post("/api/job/post", isLoggedIn, async (req, res) => {
 
     if (!foundUser) return res.status(404).json({ message: "User not found" });
 
-    console.log(isCompanyVerified);
+  
     const job = await jobModel.create({
       employerID: foundUser._id,
       title,
@@ -338,10 +338,7 @@ app.post("/api/job/post", isLoggedIn, async (req, res) => {
     await foundUser.save();
 
     console.log("user updated");
-    // const updatedUser = await userModel
-    //   .findById(req.user.id)
-    //   .populate("company");
-    // console.log(updatedUser);
+    
     res
       .status(201)
       .json({ message: "resume created successfully", user: foundUser });
@@ -504,6 +501,7 @@ app.post("/api/register/:role", async (req, res) => {
       password: hashedPassword,
       role,
       verified: false,
+      avatar: "https://res.cloudinary.com/dxpbvp4bj/image/upload/v1752061974/profile_default_kociqs.jpg"
     });
     console.log(newUser);
 
