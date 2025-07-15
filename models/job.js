@@ -19,22 +19,19 @@ const jobSchema = new mongoose.Schema({
     applicants : [
         {
             type:mongoose.Schema.Types.ObjectId ,
-            ref: "User" ,
-            unique: true
+            ref: "User" 
         }
     ],
     interviewInvitations : [
         {
             type:mongoose.Schema.Types.ObjectId ,
-            ref: "User" ,
-            unique: true
+            ref: "User" 
         }
     ],
     rejections : [
         {
             type:mongoose.Schema.Types.ObjectId ,
-            ref: "User" ,
-            unique: true
+            ref: "User" 
         }
     ],
 })
