@@ -318,7 +318,7 @@ app.post("/api/job/post", isLoggedIn, async (req, res) => {
 
     if (!foundUser) return res.status(404).json({ message: "User not found" });
 
-  
+    console.log("posting job")
     const job = await jobModel.create({
       employerID: foundUser._id,
       title,
@@ -333,7 +333,7 @@ app.post("/api/job/post", isLoggedIn, async (req, res) => {
       incentiveTwo,
       location,
     });
-
+    console.log(job);
     foundUser.postedJobs.push(job._id);
     await foundUser.save();
 
@@ -343,6 +343,7 @@ app.post("/api/job/post", isLoggedIn, async (req, res) => {
       .status(201)
       .json({ message: "resume created successfully", user: foundUser });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ error: "Error creating user." });
   }
 });
